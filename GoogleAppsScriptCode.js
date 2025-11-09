@@ -62,23 +62,25 @@ function GatherData() {
 
     SinceCOTD = 0
 
+    const OldDate = scriptPrp.getProperty("CurrentDate")
+
+    const DayNum = parseInt(OldDate.slice(0,2))
+
+    if (DayNum != 1) {
+      TransferData(MapID, OldDate)
+
+      FindAverageForEach()
+    }
+
     const date = new Date()
     const TimeZone = CalendarApp.getTimeZone()
 
     const CurrentDate = String(Utilities.formatDate(date, TimeZone, "dd/MM/yyyy"))
 
-    const DayNum = parseInt(CurrentDate.slice(0,2))
-
     scriptPrp.setProperty("CurrentDate", CurrentDate)
     scriptPrp.setProperty("CurrentDayNum", DayNum)
 
     console.log(CurrentDate)
-
-    if (DayNum != 1) {
-      TransferData(MapID, CurrentDate)
-
-      FindAverageForEach()
-    }
 
     ClearCurrentTOTDSheet()
   }
