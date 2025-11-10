@@ -289,9 +289,10 @@ function TransferData(MapID, Date) { // Transfers Data From Current TOTD Sheet T
     for (let j = 2; j < 101; j++) {
       currentTime = CTDVals[j][i]
 
-      if (currentTime > Top100Time) {
+      if (currentTime >= Top100Time) {
         lowerPosition = j - 1
         break
+        
       } else {
         lastTime = currentTime
       }
@@ -405,3 +406,12 @@ function RemoveEstimatedTime() { // Removes MapID And Estimated Time When New TO
 
   sheet.getRange(2,1,1,2).setValues([["",""]])
 }
+
+
+
+
+
+
+
+
+
