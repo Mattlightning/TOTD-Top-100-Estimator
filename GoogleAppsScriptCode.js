@@ -341,7 +341,7 @@ function FindAverageForEach() { // Update Average Position For Each Hour
 
     for (let j = 1; j < values.length; j++) {
       Total++
-      TotalPositions += parseInt(values[j][i])
+      TotalPositions += parseFloat(values[j][i])
     }
 
     const AveragePosition = TotalPositions / Total
