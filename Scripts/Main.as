@@ -1,7 +1,6 @@
 string TOTDMapID;
 string EstimatedTop100Time;
 
-bool overlay = false;
 bool RefreshCD = false;
 
 [Setting hidden]
@@ -20,21 +19,25 @@ void Render() {
         string MapID = rootMap.IdName;
 
         if (showWindow && MapID == TOTDMapID) {
-            overlay = UI::IsOverlayShown();
-            
-            int WindowFlags = UI::WindowFlags::NoResize | UI::WindowFlags::AlwaysAutoResize | UI::WindowFlags::NoCollapse; 
-            if (!overlay) WindowFlags |= UI::WindowFlags::NoTitleBar;
+            bool gameUI = UI::IsGameUIVisible();
 
-            UI::Begin("TOTD Top 100 Estimator", WindowFlags);
+            if (gameUI) {
+                bool overlay = UI::IsOverlayShown();
+                
+                int WindowFlags = UI::WindowFlags::NoResize | UI::WindowFlags::AlwaysAutoResize | UI::WindowFlags::NoCollapse; 
+                if (!overlay) WindowFlags |= UI::WindowFlags::NoTitleBar | UI::WindowFlags::NoMove;
 
-            UI::Text("Estimated Top 100: " + EstimatedTop100Time);
-            if (overlay) {
-                if (UI::Button("Refresh", vec2(60,26)) && !RefreshCD) {
-                    startnew(FetchData);
+                UI::Begin("TOTD Top 100 Estimator", WindowFlags);
+
+                UI::Text("Estimated Top 100: " + EstimatedTop100Time);
+                if (overlay) {
+                    if (UI::Button("Refresh", vec2(60,26)) && !RefreshCD) {
+                        startnew(FetchData);
+                    }
                 }
-            }
 
-            UI::End();
+                UI::End();
+            }
         }
     }
 }
