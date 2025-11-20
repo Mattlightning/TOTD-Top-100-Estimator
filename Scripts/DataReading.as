@@ -10,12 +10,14 @@ void FetchData() {
     if (req.ResponseCode() != 200) return;
 
     auto lines = req.String().Split("\n");
-    auto Data = lines[1].Split(","); // Lines[0] contains Headers
+    if (lines.Length > 1) {
+        auto Data = lines[1].Split(","); // Lines[0] contains Headers
 
-    TOTDMapID = Data[0].Trim();
-    uint time = Text::ParseInt64(Data[1].Trim());
+        TOTDMapID = Data[0].Trim();
+        uint time = Text::ParseInt64(Data[1].Trim());
 
-    EstimatedTop100Time = "0" + Time::Format(time, true, true);
+        EstimatedTop100Time = "0" + Time::Format(time, true, true);
+    }
 
     RefreshCD = false;
 }
